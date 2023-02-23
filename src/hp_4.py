@@ -44,18 +44,34 @@ def add_date_range(values, start_date):
     return list_result
 
 
+def add_date_range(values, start_date):
+    """Adds a daily date range to the list `values` beginning with 
+    `start_date`.  The date, value pairs are returned as tuples
+    in the returned list."""
+    list_result=[]
+    start=0
+    for i in values:
+        date_list=[]       
+        date_list.append(datetime.strptime(start_date,"%Y-%m-%d")  + timedelta(days=start))
+        date_list.append(i)
+        list_result.append(tuple(date_list))
+        start+=1
+    return list_result
+
+
 def fees_report(infile, outfile):
     """Calculates late fees per patron id and writes a summary report to
     outfile."""
+  
     with open(infile) as file:
         list1=[]
         object = DictReader(file)
         for item in object:
             dictionary1={}
-            day1=datetime.strptime(item['date_returned'],'%m/%d/%Y')- datetime.strptime(item['date_due'],'%m/%d/%Y') 
-            if(day1.days>0):
+            first_day=datetime.strptime(item['date_returned'],'%m/%d/%Y')- datetime.strptime(item['date_due'],'%m/%d/%Y') 
+            if(first_day.days>0):
                 dictionary1["patron_id"]=item['patron_id']
-                dictionary1["late_fees"]=round(day1.days*0.25,2)
+                dictionary1["late_fees"]=round(first_day.days*0.25,2)
                 list1.append(dictionary1)
             else:
                 dictionary1["patron_id"]=item['patron_id']
@@ -81,7 +97,7 @@ def fees_report(infile, outfile):
         columns = ['patron_id', 'late_fees']
         writer = DictWriter(file, fieldnames=columns)
         writer.writeheader()
-        writer.writerows(tax_count)
+        writer.writerows(tax_count))
 
 
 # The following main selection block will only run when you choose
