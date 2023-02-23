@@ -20,8 +20,6 @@ def date_range(start, n):
     element in the list is one day after the previous."""
     if not isinstance(start, str):
         raise TypeError
-    elif not isinstance(num, int):
-        raise TypeError
     else:
         list_dates=[]
         for i in range(0,num):
