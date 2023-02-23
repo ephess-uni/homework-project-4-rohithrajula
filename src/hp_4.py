@@ -8,7 +8,10 @@ from collections import defaultdict
 def reformat_dates(old_dates):
     """Accepts a list of date strings in format yyyy-mm-dd, re-formats each
     element to a format dd mmm yyyy--01 Jan 2001."""
-    pass
+    list_dates=[]
+    for i in old_dates:
+        list_dates.append(datetime.strptime(i, "%Y-%m-%d").strftime("%d %b %Y"))
+    return list_dates
 
 
 def date_range(start, n):
