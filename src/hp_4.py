@@ -89,7 +89,7 @@ def fees_report(infile, outfile):
             for k,v in dict.items():
                 if k == "late_fees":
                     if len(str(v).split('.')[-1]) != 2:
-                        dict[k] = str(v)
+                        dict[k] = str(v) + '0'
 
 
     
