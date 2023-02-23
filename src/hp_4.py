@@ -18,7 +18,15 @@ def date_range(start, n):
     """For input date string `start`, with format 'yyyy-mm-dd', returns
     a list of of `n` datetime objects starting at `start` where each
     element in the list is one day after the previous."""
-    pass
+    if not isinstance(start, str):
+        raise TypeError
+    elif not isinstance(num, int):
+        raise TypeError
+    else:
+        list_dates=[]
+        for i in range(0,num):
+            list_dates.append(datetime.strptime(start,"%Y-%m-%d")  + timedelta(days=i))
+        return list_dates
 
 
 def add_date_range(values, start_date):
