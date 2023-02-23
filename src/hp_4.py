@@ -97,7 +97,7 @@ def fees_report(infile, outfile):
         columns = ['patron_id', 'late_fees']
         writer = DictWriter(file, fieldnames=columns)
         writer.writeheader()
-        writer.writerows(tax_count))
+        writer.writerows(tax_count)
 
 
 # The following main selection block will only run when you choose
