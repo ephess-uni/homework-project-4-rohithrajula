@@ -62,44 +62,41 @@ def add_date_range(values, start_date):
 def fees_report(infile, outfile):
     """Calculates late fees per patron id and writes a summary report to
     outfile."""
-  
-    with open(infile) as f:
-        li=[]
-        DictReader_obj = DictReader(f)
-        for item in DictReader_obj:
-            di={}
+    with open(infile) as file:
+        list1=[]
+        object = DictReader(file)
+        for item in object:
+            dictionary1={}
             day1=datetime.strptime(item['date_returned'],'%m/%d/%Y')- datetime.strptime(item['date_due'],'%m/%d/%Y') 
             if(day1.days>0):
-                di["patron_id"]=item['patron_id']
-                di["late_fees"]=round(day1.days*0.25, 2)
-                li.append(di)
+                dictionary1["patron_id"]=item['patron_id']
+                dictionary1["late_fees"]=round(day1.days*0.25,2)
+                list1.append(dictionary1)
             else:
-                di["patron_id"]=item['patron_id']
-                di["late_fees"]=float(0)
-                li.append(di)
+                dictionary1["patron_id"]=item['patron_id']
+                dictionary1["late_fees"]=float(0)
+                list1.append(dictionary1)
         aggregated_data = {}
 
-        for dictionary in li:
+        for dictionary in list1:
             key = (dictionary['patron_id'])
-
             aggregated_data[key] = aggregated_data.get(key, 0) + dictionary['late_fees']
-
-        tax = [{'patron_id': key, 'late_fees': value} for key, value in aggregated_data.items()]
-        for dict in tax:
-            for k,v in dict.items():
-                if k == "late_fees":
-                    if len(str(v).split('.')[-1]) != 2:
-                        dict[k] = str(v) + '0'
+        tax_count = [{'patron_id': key, 'late_fees': value} for key, value in aggregated_data.items()]
+        for dict in tax_count:
+            for i,j in dict.items():
+                if i == "late_fees":
+                    if len(str(j).split('.')[-1]) != 2:
+                        dict[i] = str(j) + '0'
 
 
     
 
 
     with open(outfile,"w", newline="") as file:
-        col = ['patron_id', 'late_fees']
-        writer = DictWriter(file, fieldnames=col)
+        columns = ['patron_id', 'late_fees']
+        writer = DictWriter(file, fieldnames=columns)
         writer.writeheader()
-        writer.writerows(tax)
+        writer.writerows(tax_count)
 
 
 # The following main selection block will only run when you choose
