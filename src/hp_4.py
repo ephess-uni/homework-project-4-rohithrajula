@@ -33,7 +33,15 @@ def add_date_range(values, start_date):
     """Adds a daily date range to the list `values` beginning with
     `start_date`.  The date, value pairs are returned as tuples
     in the returned list."""
-    pass
+    list_result=[]
+    start=0
+    for i in values:
+        date_list=[]       
+        date_list.append(datetime.strptime(start_date,"%Y-%m-%d")  + timedelta(days=start))
+        date_list.append(i)
+        list_result.append(tuple(date_list))
+        start+=1
+    return list_result
 
 
 def fees_report(infile, outfile):
