@@ -20,11 +20,11 @@ def date_range(start, n):
     element in the list is one day after the previous."""
     if not isinstance(start, str):
         raise TypeError
-    elif not isinstance(num,int):
+    elif not isinstance(n,int):
         raise TypeError
     else:
         list_dates=[]
-        for i in range(0,num):
+        for i in range(0,n):
             list_dates.append(datetime.strptime(start,"%Y-%m-%d")  + timedelta(days=i))
         return list_dates
 
